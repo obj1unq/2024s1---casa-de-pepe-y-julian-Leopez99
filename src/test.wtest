@@ -34,3 +34,10 @@ test "Idem anterior y la cuenta combinada queda en 350 pesos" {
 	assert.equals(350, cuentaCombinada.saldo())
 }
 
+test "casa tiene 50% de víveres, necesita 100$ para reparaciones, tiene asociada la cuenta corriente con 1000 pesos de saldo y una estrategia de ahorro Full, " {
+	casaDePepeYJulian.cantidadDeViveres(50)
+	casaDePepeYJulian.montoDeReparaciones(100)
+	cuentaCorriente.saldo(1000)
+	full.comprar(casaDePepeYJulian, cuentaCorriente)
+	assert.equals(800, cuentaCorriente.saldo())
+}
