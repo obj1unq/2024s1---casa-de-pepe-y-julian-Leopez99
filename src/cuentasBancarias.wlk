@@ -1,6 +1,6 @@
 object cuentaCorriente {
 
-	var saldo = 500
+	var property saldo = 0
 
 	method depositar(dinero) {
 		saldo += dinero
@@ -10,15 +10,11 @@ object cuentaCorriente {
 		saldo -= dinero
 	}
 
-	method saldo() {
-		return saldo
-	}
-
 }
 
 object cuentaConGastos {
 
-	var saldo = 0
+	var property saldo = 0
 	var costoDeOperacion = 50
 
 	method depositar(dinero) {
@@ -31,10 +27,6 @@ object cuentaConGastos {
 
 	method costoDeOperacion(_costoDeOperacion) {
 		costoDeOperacion = _costoDeOperacion
-	}
-
-	method saldo() {
-		return saldo
 	}
 
 }

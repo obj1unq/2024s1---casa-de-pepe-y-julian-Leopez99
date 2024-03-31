@@ -15,18 +15,22 @@ test "Cuenta vacia con costo de 20 pesos se depositan 1000 pesos" {
 }
 
 test "Se depositan 100 pesos en la cuenta combinada (van a la cuenta con gastos, porque es la primaria, depositándose 50 pesos efectivos)" {
+	cuentaCorriente.saldo(500)
 	cuentaCombinada.depositar(100)
 	assert.equals(50, cuentaCombinada.cuentaPrimaria().saldo())
 }
 
 test "Idem anterior y se extraen 200 pesos, se deja la cuenta secundaria (cuenta corriente) con 300 pesos" {
+	cuentaCorriente.saldo(500)
 	cuentaCombinada.depositar(100)
 	cuentaCombinada.extraer(200)
 	assert.equals(300, cuentaCombinada.cuentaSecundaria().saldo())
 }
 
 test "Idem anterior y la cuenta combinada queda en 350 pesos" {
+	cuentaCorriente.saldo(500)
 	cuentaCombinada.depositar(100)
 	cuentaCombinada.extraer(200)
 	assert.equals(350, cuentaCombinada.saldo())
 }
+
