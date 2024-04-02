@@ -43,8 +43,10 @@ object full {
 	method comprar(casa, tipoDeCuentaBancaria) {
 		if (casa.casaEnOrden()) {
 			casa.gasto(tipoDeCuentaBancaria, (100 - casa.cantidadDeViveres()) * calidad)
+			casa.cantidadDeViveres(((100 - casa.cantidadDeViveres()) + 40).min(100))
 		} else {
 			casa.gasto(tipoDeCuentaBancaria, 40 * calidad) // Tengo un problema con esta cuenta porque no creo que tenga sentido siempre poner un 40% porque puede que si le sumo 40% me vaya a un valor superior a 100%
+			casa.cantidadDeViveres(casa.cantidadDeViveres() + 40)
 		}
 		if (casa.montoDeReparaciones() - tipoDeCuentaBancaria.saldo() > 1000) {
 			self.hacerTodasLasReparaciones(casa, tipoDeCuentaBancaria)

@@ -39,5 +39,8 @@ test "casa tiene 50% de víveres, necesita 100$ para reparaciones, tiene asociad
 	casaDePepeYJulian.montoDeReparaciones(100)
 	cuentaCorriente.saldo(1000)
 	full.comprar(casaDePepeYJulian, cuentaCorriente)
+	
 	assert.equals(800, cuentaCorriente.saldo())
+	assert.equals(90, casaDePepeYJulian.cantidadDeViveres())
+	assert.equals(100,casaDePepeYJulian.montoDeReparaciones())
 }
