@@ -1,0 +1,65 @@
+import casa.*
+import cuentasBancarias.*
+
+test "Se rompe algo de 1000 pesos y aumenta el costo de reparaciones haciendo que la casa no este en orden. Hay viveres suficientes" {
+	casaDePepeYJulian.montoDeReparaciones(1000)
+	assert.equals(true, casaDePepeYJulian.hayQueHacerReparaciones())
+	assert.equals(false, casaDePepeYJulian.casaEnOrden())
+	assert.equals(true, casaDePepeYJulian.tieneViveresSuficientes())
+}
+
+test "Cuenta vacia con costo de 20 pesos se depositan 1000 pesos" {
+	cuentaConGastos.costoDeOperacion(20)
+	cuentaConGastos.depositar(1000)
+	assert.equals(980, cuentaConGastos.saldo())
+}
+
+test "Se depositan 100 pesos en la cuenta combinada (van a la cuenta con gastos, porque es la primaria, depositándose 50 pesos efectivos)" {
+	cuentaCorriente.saldo(500)
+	cuentaCombinada.depositar(100)
+	assert.equals(50, cuentaCombinada.cuentaPrimaria().saldo())
+}
+
+test "Idem anterior y se extraen 200 pesos, se deja la cuenta secundaria (cuenta corriente) con 300 pesos" {
+	cuentaCorriente.saldo(500)
+	cuentaCombinada.depositar(100)
+	cuentaCombinada.extraer(200)
+	assert.equals(300, cuentaCombinada.cuentaSecundaria().saldo())
+}
+
+test "Idem anterior y la cuenta combinada queda en 350 pesos" {
+	cuentaCorriente.saldo(500)
+	cuentaCombinada.depositar(100)
+	cuentaCombinada.extraer(200)
+	assert.equals(350, cuentaCombinada.saldo())
+}
+
+test "casa tiene 50% de víveres, necesita 100$ para reparaciones, tiene asociada la cuenta corriente con 1000 pesos de saldo y una estrategia de ahorro Full, " {
+	casaDePepeYJulian.cantidadDeViveres(50)
+	casaDePepeYJulian.montoDeReparaciones(100)
+	cuentaCorriente.saldo(1000)
+	
+	full.comprar(casaDePepeYJulian, cuentaCorriente)
+	
+	assert.equals(800, cuentaCorriente.saldo())
+	assert.equals(90, casaDePepeYJulian.cantidadDeViveres())
+	assert.equals(100,casaDePepeYJulian.montoDeReparaciones())
+}
+
+test "Estrategia full(Llevar al 100% la cantidad de viveres) con casa en orden (Cantidad de viveres > 40 y montoDeReparaciones == 0), 65% de viveres 1000$ en cuenta corriente"{
+	casaDePepeYJulian.cantidadDeViveres(65)
+	casaDePepeYJulian.montoDeReparaciones(0)
+	cuentaCorriente.saldo(1000)
+	
+	full.comprar(casaDePepeYJulian, cuentaCorriente)
+	assert.equals(100, casaDePepeYJulian.cantidadDeViveres())
+}
+
+test "Estrategia full(Llevar al 100% la cantidad de viveres) con casa NO en orden (Cantidad de viveres > 40 y montoDeReparaciones => 100), 70% de viveres 1000$ en cuenta corriente"{
+	casaDePepeYJulian.cantidadDeViveres(70)
+	casaDePepeYJulian.montoDeReparaciones(100)
+	cuentaCorriente.saldo(1000)
+	
+	full.comprar(casaDePepeYJulian, cuentaCorriente)
+	assert.equals(100, casaDePepeYJulian.cantidadDeViveres())
+}
