@@ -38,9 +38,28 @@ test "casa tiene 50% de víveres, necesita 100$ para reparaciones, tiene asociad
 	casaDePepeYJulian.cantidadDeViveres(50)
 	casaDePepeYJulian.montoDeReparaciones(100)
 	cuentaCorriente.saldo(1000)
+	
 	full.comprar(casaDePepeYJulian, cuentaCorriente)
 	
 	assert.equals(800, cuentaCorriente.saldo())
 	assert.equals(90, casaDePepeYJulian.cantidadDeViveres())
 	assert.equals(100,casaDePepeYJulian.montoDeReparaciones())
+}
+
+test "Estrategia full(Llevar al 100% la cantidad de viveres) con casa en orden (Cantidad de viveres > 40 y montoDeReparaciones == 0), 65% de viveres 1000$ en cuenta corriente"{
+	casaDePepeYJulian.cantidadDeViveres(65)
+	casaDePepeYJulian.montoDeReparaciones(0)
+	cuentaCorriente.saldo(1000)
+	
+	full.comprar(casaDePepeYJulian, cuentaCorriente)
+	assert.equals(100, casaDePepeYJulian.cantidadDeViveres())
+}
+
+test "Estrategia full(Llevar al 100% la cantidad de viveres) con casa NO en orden (Cantidad de viveres > 40 y montoDeReparaciones => 100), 70% de viveres 1000$ en cuenta corriente"{
+	casaDePepeYJulian.cantidadDeViveres(70)
+	casaDePepeYJulian.montoDeReparaciones(100)
+	cuentaCorriente.saldo(1000)
+	
+	full.comprar(casaDePepeYJulian, cuentaCorriente)
+	assert.equals(100, casaDePepeYJulian.cantidadDeViveres())
 }
